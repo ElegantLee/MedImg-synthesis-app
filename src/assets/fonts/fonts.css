@@ -1,0 +1,13 @@
+@font-face {
+  font-family: 'NotoSerifSC-Medium';
+  src: url('./NotoSerifSC-Medium.otf');
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'NotoSerifSC-Regular';
+  src: url('./NotoSerifSC-Regular.otf');
+  font-weight: 300;
+  font-style: normal;
+}

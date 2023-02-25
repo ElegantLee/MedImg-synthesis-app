@@ -115,14 +115,9 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .sliceLog {
   border: 2px solid grey;
-}
-
-/* 日志 */
-.text {
-  font-size: 14px;
 }
 
 .item {
@@ -152,5 +147,9 @@ export default {
   .el-radio__label {
     font-size: 0.8rem;
   }
+}
+
+.el-button + .el-button {
+  margin-left: 3rem;
 }
 </style>>

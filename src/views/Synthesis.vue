@@ -27,45 +27,51 @@
     <div class="mt-5">
       <el-divider content-position="left">结果展示</el-divider>
       <el-row type="flex" justify="space-between">
-        <el-col :span="8" :key="t1" :offset="index > 0 ? 2 : 0">
+        <el-col :span="10">
           <el-card :body-style="{ padding: '0px' }">
             <!-- <img src="../assets/images/1_real_A.png" class="image" /> -->
             <el-upload
               class="avatar-uploader"
-              action="https://jsonplaceholder.typicode.com/posts/"
+              action="#"
+              accept="image/jpg, image/jpeg, image/png"
+              drag
+              :auto-upload="false"
               :show-file-list="false"
+              :on-change="(file, fileList) => {return uploadFile(file, fileList, 'img_t1')}"
               :on-success="handleAvatarSuccess"
               :before-upload="beforeAvatarUpload"
             >
-              <img v-if="imageUrl" :src="imageUrl" class="image" />
+              <img v-if="t1Url" :src="t1Url" class="image" />
               <i v-else class="el-icon-plus avatar-uploader-icon"></i>
             </el-upload>
-            <div style="padding: 14px;">
+            <div class="imageCategory">
               <span>T1 图像</span>
             </div>
           </el-card>
         </el-col>
         <el-col
-          :span="8"
-          :key="btn"
-          class="d-flex jc-center ai-center"
+          :span="4"
+          class="d-flex flex-column jc-around ai-center"
         >
           <el-button type="primary">合成</el-button>
+          <el-button type="success">保存</el-button>
         </el-col>
-        <el-col :span="8" :key="t2" :offset="index > 0 ? 2 : 0">
+        <el-col :span="10">
           <el-card :body-style="{ padding: '0px' }">
             <!-- <img src="../assets/images/1_fake_B.png" class="image" /> -->
             <el-upload
               class="avatar-uploader"
-              action="https://jsonplaceholder.typicode.com/posts/"
+              action="#"
+              accept="image/jpg, image/jpeg, image/png"
+              :auto-upload="false"
               :show-file-list="false"
-              :on-success="handleAvatarSuccess"
+              :on-change="(file, fileList) => {return uploadFile(file, fileList, 'img_t2')}"
               :before-upload="beforeAvatarUpload"
             >
-              <img v-if="imageUrl" :src="imageUrl" class="image" />
+              <img v-if="t2Url" :src="t2Url" class="image" />
               <i v-else class="el-icon-plus avatar-uploader-icon"></i>
             </el-upload>
-            <div style="padding: 14px;">
+            <div class="imageCategory">
               <span>T2 图像</span>
             </div>
           </el-card>
@@ -81,46 +87,62 @@ export default {
     return {
       ruleForm: {
         model: '',
-        dataset: '',
-        imageUrl: ''
+        dataset: ''
       },
       rules: {
         model: [{ required: true, message: '请选择模型', trigger: 'change' }],
         dataset: [{ required: true, message: '请选择数据集', trigger: 'change' }]
-      }
-    };
+      },
+      t1Url: '',
+      t2Url: ''
+    }
   },
   methods: {
     submitForm(formName) {
       this.$refs[formName].validate(valid => {
         if (valid) {
-          alert('submit!');
+          alert('submit!')
         } else {
-          console.log('error submit!!');
-          return false;
+          console.log('error submit!!')
+          return false
         }
-      });
+      })
     },
     resetForm(formName) {
-      this.$refs[formName].resetFields();
+      this.$refs[formName].resetFields()
     },
     handleAvatarSuccess(res, file) {
-      this.imageUrl = URL.createObjectURL(file.raw);
+      this.imageUrl = URL.createObjectURL(file.raw)
     },
     beforeAvatarUpload(file) {
       // const isJPG = file.type === 'image/jpeg' || file.type === 'imgage/png';
-      const isLt2M = file.size / 1024 / 1024 < 2;
+      const isLt2M = file.size / 1024 / 1024 < 2
 
       // if (!isJPG) {
       //   this.$message.error('上传头像图片只能是 JPG 格式!');
       // }
       if (!isLt2M) {
-        this.$message.error('上传头像图片大小不能超过 2MB!');
+        this.$message.error('上传头像图片大小不能超过 2MB!')
       }
-      return isLt2M;
+      return isLt2M
+    },
+    uploadFile(file, fileList, key) {
+      // let formData = new FormData()
+      let img = file.raw
+      if (key === 'img_t1')
+        this.t1Url = URL.createObjectURL(img)
+      else
+        this.t2Url = URL.createObjectURL(img)
+
+      // formData.append('file', file)
+      // 传formData给后台就行
+      // 比如
+      // 接口(formData).then(res=>{
+      // this.videoUrl=res.url
+      // })
     }
   }
-};
+}
 </script>
 
 <style lang="scss">
@@ -166,6 +188,19 @@ export default {
   }
 }
 
+.el-button+.el-button {
+  // margin-left: 0;
+}
+
+.el-row--flex {
+  margin-top: 2rem;
+}
+
+.imageCategory {
+  text-align: center;
+  padding: 14px;
+}
+
 /* 图片上传 */
 .el-divider__text {
   color: #000;
@@ -179,6 +214,7 @@ export default {
   cursor: pointer;
   position: relative;
   overflow: hidden;
+  width: 100%;
 }
 .avatar-uploader .el-upload:hover {
   border-color: #409eff;
@@ -195,5 +231,10 @@ export default {
   width: 178px;
   height: 178px;
   display: block;
+}
+
+.el-upload-dragger {
+  width: 100%;
+  height: 100%;
 }
 </style>

@@ -264,4 +264,8 @@ export default {
   line-height: 16vh;
   overflow: hidden;
 }
+
+.avatar-uploader-icon {
+  line-height: 16vh;
+}
 </style>

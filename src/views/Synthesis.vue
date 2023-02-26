@@ -74,9 +74,10 @@
             </el-upload>-->
             <!-- <img v-if="t2Url" :src="t2Url" class="image" /> -->
             <el-image>
-              <!-- <div slot="error" class="image-slot">
-                <i class="el-icon-picture-outline"></i>
-              </div> -->
+              <div slot="error" class="image-slot">
+                <!-- <i class="el-icon-picture-outline"></i> -->
+                 <img src="../assets/images/1_fake_B.png" class="image" />
+              </div>
             </el-image>
             <div class="imageCategory">
               <span>T2 图像</span>
@@ -253,7 +254,7 @@ export default {
 }
 
 .el-image {
-  height: 16vh;
+  // height: 16vh;
   width: 100%;
   background-color: #fff;
   border: 1px dashed #d9d9d9;

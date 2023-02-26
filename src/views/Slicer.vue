@@ -54,7 +54,7 @@
         <el-progress
           :text-inside="true"
           :stroke-width="24"
-          :percentage="50"
+          :percentage="42"
           status="success"
         ></el-progress>
       </el-tab-pane>

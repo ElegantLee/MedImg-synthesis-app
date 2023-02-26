@@ -59,7 +59,7 @@
         <el-col :span="10">
           <el-card :body-style="{ padding: '0px' }">
             <!-- <img src="../assets/images/1_fake_B.png" class="image" /> -->
-            <el-upload
+            <!-- <el-upload
               class="avatar-uploader"
               action="#"
               accept="image/jpg, image/jpeg, image/png"
@@ -70,7 +70,13 @@
             >
               <img v-if="t2Url" :src="t2Url" class="image" />
               <i v-else class="el-icon-plus avatar-uploader-icon"></i>
-            </el-upload>
+            </el-upload>-->
+            <!-- <img v-if="t2Url" :src="t2Url" class="image" /> -->
+            <el-image>
+              <div slot="error" class="image-slot">
+                <i class="el-icon-picture-outline"></i>
+              </div>
+            </el-image>
             <div class="imageCategory">
               <span>T2 图像</span>
             </div>
@@ -129,10 +135,8 @@ export default {
     uploadFile(file, fileList, key) {
       // let formData = new FormData()
       let img = file.raw
-      if (key === 'img_t1')
-        this.t1Url = URL.createObjectURL(img)
-      else
-        this.t2Url = URL.createObjectURL(img)
+      if (key === 'img_t1') this.t1Url = URL.createObjectURL(img)
+      else this.t2Url = URL.createObjectURL(img)
 
       // formData.append('file', file)
       // 传formData给后台就行
@@ -188,10 +192,6 @@ export default {
   }
 }
 
-.el-button+.el-button {
-  // margin-left: 0;
-}
-
 .el-row--flex {
   margin-top: 2rem;
 }
@@ -236,5 +236,22 @@ export default {
 .el-upload-dragger {
   width: 100%;
   height: 100%;
+}
+
+.el-upload {
+  height: 16vh;
+}
+
+.el-image {
+  height: 16vh;
+  width: 100%;
+  background-color: #fff;
+  border: 1px dashed #d9d9d9;
+  border-radius: 6px;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  text-align: center;
+  line-height: 16vh;
+  overflow: hidden;
 }
 </style>

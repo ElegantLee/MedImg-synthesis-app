@@ -12,7 +12,7 @@
         <el-form-item label="模型" prop="model">
           <el-select v-model="ruleForm.model" placeholder="请选择模型">
             <el-option label="MMNet" value="shanghai"></el-option>
-            <el-option label="MMNet2" value="beijing"></el-option>
+            <el-option label="ViG-M3Net" value="beijing"></el-option>
           </el-select>
         </el-form-item>
         <el-form-item label="数据集" prop="dataset">
@@ -32,6 +32,7 @@
             <!-- <img src="../assets/images/1_real_A.png" class="image" /> -->
             <el-upload
               class="avatar-uploader"
+              :class="{'el-upload-after': isUploaded}"
               action="#"
               accept="image/jpg, image/jpeg, image/png"
               drag
@@ -73,9 +74,9 @@
             </el-upload>-->
             <!-- <img v-if="t2Url" :src="t2Url" class="image" /> -->
             <el-image>
-              <div slot="error" class="image-slot">
+              <!-- <div slot="error" class="image-slot">
                 <i class="el-icon-picture-outline"></i>
-              </div>
+              </div> -->
             </el-image>
             <div class="imageCategory">
               <span>T2 图像</span>
@@ -100,7 +101,8 @@ export default {
         dataset: [{ required: true, message: '请选择数据集', trigger: 'change' }]
       },
       t1Url: '',
-      t2Url: ''
+      t2Url: '',
+      isUploaded: false
     }
   },
   methods: {
@@ -137,7 +139,7 @@ export default {
       let img = file.raw
       if (key === 'img_t1') this.t1Url = URL.createObjectURL(img)
       else this.t2Url = URL.createObjectURL(img)
-
+      this.isUploaded = !this.isUploaded
       // formData.append('file', file)
       // 传formData给后台就行
       // 比如
@@ -238,8 +240,16 @@ export default {
   height: 100%;
 }
 
-.el-upload {
+.avatar-uploader {
   height: 16vh;
+}
+
+.el-upload {
+  height: 100%
+}
+
+.el-upload-after {
+  height: auto;
 }
 
 .el-image {
